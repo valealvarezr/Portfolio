@@ -18,6 +18,46 @@ body {
   line-height: 1.6em;
 }
 
+/* Preloader */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: #0a0a0a; /* fondo oscuro mientras carga */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* encima de todo */
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+#preloader .loader {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+#preloader p {
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* cuando ya cargó */
+#preloader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
 #model-wrapper {
   width: 100%;
   height: 400px;
