@@ -10,6 +10,48 @@ body {
   color: #222;
 }
 
+/* Contenedor general de tu página */
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center; /* centra en pantallas grandes */
+}
+
+.page-wrapper {
+  width: 1920px;       /* diseño base */
+  transform-origin: top center;
+}
+
+/* Escalar según el ancho de la pantalla */
+@media (max-width: 1920px) {
+  .page-wrapper {
+    transform: scale(calc(100vw / 1920));
+  }
+}
+
+/* Overlay mensaje horizontal */
+#rotateMessage {
+  position: fixed;
+  inset: 0;
+  background: #0a0a0a;
+  color: white;
+  display: none; /* oculto por defecto */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  z-index: 10000; /* encima de todo */
+}
+
+#rotateMessage .message-box {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px 30px;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  max-width: 400px;
+  line-height: 1.5;
+}
+
 .content {
   max-width: 800px;
   margin: 100px auto;
@@ -17,6 +59,20 @@ body {
   font-size: 1.2em;
   line-height: 1.6em;
 }
+
+#portfolio-wrapper {
+  width: 1920px;   /* tu base de diseño */
+  height: 1080px;  /* tu base de diseño */
+  position: relative;
+  transform-origin: top left;
+}
+
+body {
+  margin: 0;
+  background: #000;
+  overflow-x: hidden; /* evita scroll horizontal */
+}
+
 
 /* Preloader */
 #preloader {

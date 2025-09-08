@@ -19,6 +19,13 @@
 	</head>
     <link rel="preload" href="Images/CocinaDiaVideo.mp4" as="video" type="video/mp4">
     <body>
+      <!-- Overlay aviso orientación -->
+      <div id="rotateMessage">
+        <div class="message-box">
+          <p>📱 Para una mejor experiencia, gira tu dispositivo en posición horizontal.</p>
+        </div>
+      </div>
+       <div id="page-wrapper">
       <!-- Pantalla de carga -->
       <div id="preloader">
         <div class="loader"></div>
@@ -96,7 +103,7 @@
           </div>
           
 
-
+  </div>
         </div>
         
       </div>
@@ -264,6 +271,20 @@
         });
       </script>
 
+      <script>
+        function checkScreenWidth() {
+          const rotateMessage = document.getElementById("rotateMessage");
+          if (window.innerWidth < 425) {
+            rotateMessage.style.display = "flex";
+          } else {
+            rotateMessage.style.display = "none";
+          }
+        }
+
+        // Revisar en carga y al redimensionar
+        window.addEventListener("load", checkScreenWidth);
+        window.addEventListener("resize", checkScreenWidth);
+      </script>
 
       <script type="module" src="./main.js"></script>
       <script src="golpe.js"></script>
