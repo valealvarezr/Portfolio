@@ -17,6 +17,7 @@
     </script>
     
 	</head>
+    <link rel="preload" href="Images/CocinaDiaVideo.mp4" as="video" type="video/mp4">
     <body>
       <!-- Pantalla de carga -->
       <div id="preloader">
@@ -233,8 +234,32 @@
       </script>
 
       <script>
-        window.addEventListener("load", () => {
+        function waitForVideo(videoElement) {
+          return new Promise(resolve => {
+            if (videoElement.readyState >= 3) {
+              resolve(); // ya está listo
+            } else {
+              videoElement.addEventListener("canplaythrough", resolve, { once: true });
+            }
+          });
+        }
+
+        // Pre-cargar el video de día sin mostrarlo
+        const videoDia = document.createElement("video");
+        videoDia.src = "Images/CocinaDiaVideo.mp4";
+        videoDia.preload = "auto";
+
+        window.addEventListener("load", async () => {
           const preloader = document.getElementById("preloader");
+          const videoNoche = document.getElementById("themeVideo");
+
+          // esperar que ambos videos estén listos
+          await Promise.all([
+            waitForVideo(videoNoche),
+            waitForVideo(videoDia)
+          ]);
+
+          // ocultar preloader
           preloader.classList.add("hidden");
         });
       </script>
