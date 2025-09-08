@@ -1,0 +1,495 @@
+
+html, body {
+  overflow-x: hidden;
+}
+
+body {
+  background-color: white;
+  margin: 0;
+  font-family: 'SF Distant Galaxy', sans-serif;
+  color: #222;
+}
+
+.content {
+  max-width: 800px;
+  margin: 100px auto;
+  padding: 20px;
+  font-size: 1.2em;
+  line-height: 1.6em;
+}
+
+#model-wrapper {
+  width: 100%;
+  height: 400px;
+  margin: 20px 0;
+}
+
+#progress-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  z-index: 999;
+}
+
+.mi-video {
+  position: absolute;  
+  top: 7600px;      
+  left: 31.5%;            
+  width: auto;
+  height: 800px;      
+  transform: translate(-50%, -20%); 
+  z-index: 1;          
+}
+
+.mi-videochime {
+  position: absolute;  
+  
+  top: 2280px;          
+  left: 78.5%;           
+  width: auto;
+  height: 900px;       
+  transform: translate(-50%, -20%);
+  z-index: 1;         
+}
+
+.Fondo-Inicio{
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: auto;
+  height: 300px; 
+  z-index: 0;
+}
+
+.Titul{
+  position: absolute;
+  top: 70%;                 /* baja hasta la mitad */
+  left: 32.5%;                /* se coloca desde la mitad */
+  transform: translate(-50%, -50%); /* corrige en X y Y */
+  width: 800px;
+  height: auto; 
+  z-index: 1;
+  filter: invert();
+  mix-blend-mode:screen;
+  
+  transition: 0.5s ease;
+}
+
+.Titulo{
+  position: absolute;
+  top: 70%;                 /* baja hasta la mitad */
+  left: 32.5%;                /* se coloca desde la mitad */
+  transform: translate(-50%, -50%); /* corrige en X y Y */
+  width: 800px;
+  height: auto; 
+  z-index: 1;
+  filter: invert();
+  mix-blend-mode:screen;
+  
+  transition: 0.5s ease;
+}
+
+@keyframes golpeO {
+  0%   { transform: translate(-50%, -50%) translateX(0); }
+  20%  { transform: translate(-50%, -50%) translateX(-8px); }
+  40%  { transform: translate(-50%, -50%) translateX(6px); }
+  60%  { transform: translate(-50%, -50%) translateX(-4px); }
+  80%  { transform: translate(-50%, -50%) translateX(2px); }
+  100% { transform: translate(-50%, -50%) translateX(0); }
+}
+
+.Titulo.golpe {
+  animation: golpeO 0.6s ease;
+}
+/* 
+.Titulo:hover{
+  transform: translate(-50%, -50%) scale(1.015) rotate(1.5deg);
+}
+  */
+
+.threedartist{
+  position: absolute;
+  top: 250%;                 /* baja hasta la mitad */
+  left: 20%;                /* se coloca desde la mitad */
+  transform: translate(-50%, -50%); /* corrige en X y Y */
+  width: 350px;
+  height: auto; 
+  z-index: 1;
+  filter: invert();
+  mix-blend-mode:screen;
+  transition: 0.5s ease;
+  
+}
+.threedartist:hover{
+  transform: translate(-50%, -50%) scale(1.015) rotate(-1.5deg);
+}
+
+.LunaSol {
+      position: fixed;
+      top: 5%;
+      left: 95%;
+      transform: translate(-50%, -50%);
+      width: 50px;
+      height: auto;
+      
+      filter: invert(); /* base: "oscurecido" */
+      cursor: pointer;
+      mix-blend-mode:difference;
+      transition: filter 0.3s, transform 0.3s;
+      
+      z-index: 10;
+    }
+
+.LunaSol:hover {
+  mix-blend-mode:normal ;
+  filter:contrast(100%);
+  transform: translate(-50%, -50%) scale(1.6) rotate(120deg);
+  transition: 0.5s ease;
+}
+
+#themeVideo {
+  transition: opacity 2s ease;
+}
+
+img {
+  transition: opacity 0.5s ease; /* cualquier imagen tendrá fade */
+}
+
+video {
+  transition: opacity 0.5s ease; /* cualquier imagen tendrá fade */
+}
+ 
+.ValeFoto{
+  position: absolute;
+  top: -1%;                 /* baja hasta la mitad */
+  left: -10%;                /* se coloca desde la mitad */
+  transform: translate(0%, 0%); /* corrige en X y Y */
+  width: 600px;
+  height: auto; 
+  mix-blend-mode:luminosity;
+  z-index: 12;
+  pointer-events: none;
+}
+
+.SobremiText{
+  position: absolute;
+  top: 0%;                 /* baja hasta la mitad */
+  left: 0%;                /* se coloca desde la mitad */
+  transform: translate(0%, 0%); /* corrige en X y Y */
+  width: 1200px;
+  height: auto; 
+  mix-blend-mode:luminosity;
+  filter:invert();
+  z-index: 10;
+  transition: filter 1.5s ease;
+  transition: ease 1s;
+}
+.SobremiText.light{
+  filter:none;
+}
+.SobremiText:hover{
+  transform: translate(6%, 0%) scale(1) rotate(-0.45deg);
+}
+
+
+
+.Blender{
+  position: absolute;
+  top: 450px;                 /* baja hasta la mitad */
+  left: 25%;                /* se coloca desde la mitad */
+  transform: translate(0%, 0%); /* corrige en X y Y */
+  width: 140px;
+  height: auto; 
+  mix-blend-mode:luminosity;
+  filter:invert();
+  z-index: 10;
+  transition: filter 1.5s ease;
+  transition: ease 0.3s;
+}
+.Blender.light{
+  filter:none;
+}
+.Blender:hover{
+  transform: translate(0%, 1%) scale(1.2) rotate(-2deg);
+}
+
+
+
+.estrellas-Blender{
+  position: absolute;
+  top: 600px;
+  left: 26%;
+  width: 150px;
+  opacity: 1;
+  mix-blend-mode: luminosity;
+  transition: 0.3s ease-in-out;
+  transform: scale(1) rotate(0);
+  filter:invert();
+}
+
+.habilidades-Blender {
+  position: absolute;
+  top: 600px;
+  left: 26%;
+  width: 150px;
+  opacity: 1;
+  mix-blend-mode: luminosity;
+  transition: 0.3s ease-in-out;
+  transform: scale(0) rotate(-25deg);
+  filter:invert();
+}
+.estrellas-Blender.light,
+.habilidades-Blender.light {
+  filter:none;
+}
+
+.habilidades-Blender {
+  opacity: 0; /* empieza oculta */
+}
+
+/* cuando pasas el mouse por la imagen Blender */
+.Blender:hover ~ .estrellas-Blender {
+  opacity: 0; /* desaparece */
+  transform: scale(0) rotate(15deg);
+}
+
+.Blender:hover ~ .habilidades-Blender {
+  opacity: 1; /* aparece */
+  transform: scale(1) rotate(0deg);
+}
+
+
+
+.Substance{
+  position: absolute;
+  top: 450px;                 /* baja hasta la mitad */
+  left: 40%;                /* se coloca desde la mitad */
+  transform: translate(0%, 0%); /* corrige en X y Y */
+  width: 130px;
+  height: auto; 
+  mix-blend-mode:luminosity;
+  filter:invert();
+  z-index: 10;
+  transition: filter 1.5s ease;
+  transition: ease 0.3s;
+}
+.Substance.light{
+  filter:none;
+}
+.Substance:hover{
+  transform: translate(0%, 1%) scale(1.2) rotate(-2deg);
+}
+
+
+
+.estrellas-Substance{
+  position: absolute;
+  top: 600px;
+  left: 39.5%;
+  width: 150px;
+  opacity: 1;
+  mix-blend-mode: luminosity;
+  transition: 0.3s ease-in-out;
+  transform: scale(1) rotate(0);
+  filter:invert();
+}
+
+.habilidades-Substance {
+  position: absolute;
+  top: 600px;
+  left: 39.5%;
+  width: 150px;
+  opacity: 1;
+  mix-blend-mode: luminosity;
+  transition: 0.3s ease-in-out;
+  transform: scale(0) rotate(-25deg);
+  filter:invert();
+}
+.estrellas-Substance.light,
+.habilidades-Substance.light {
+  filter:none;
+}
+
+.habilidades-Substance {
+  opacity: 0; /* empieza oculta */
+}
+
+/* cuando pasas el mouse por la imagen Blender */
+.Substance:hover ~ .estrellas-Substance {
+  opacity: 0; /* desaparece */
+  transform: scale(0) rotate(15deg);
+}
+
+.Substance:hover ~ .habilidades-Substance {
+  opacity: 1; /* aparece */
+  transform: scale(1) rotate(0deg);
+}
+
+
+
+.EchoesTitle{
+  position: absolute;
+  top: 750px;                 /* baja hasta la mitad */
+  left: 0;                /* se coloca desde la mitad */
+  transform: translate(0%, 0%); /* corrige en X y Y */
+  width: 800px;
+  height: auto; 
+  z-index: 10;
+  filter: invert(1);
+}
+
+.EchoesTitle.light{
+  filter: invert(0);
+}
+
+.Echoes1 {
+  position: absolute;
+  top: 1000px;
+  left: 0%;
+  width: 1920px;
+  opacity: 1;
+}
+.Echoes2 {
+  position: absolute;
+  top: 3400px;
+  left: 0%;
+  width: 1920px;
+  opacity: 1;
+}
+.Echoes3 {
+  position: absolute;
+  top: 5900px;
+  left: 0%;
+  width: 1920px;
+  opacity: 1;
+}
+
+
+
+.About-Me{
+  position:absolute;
+  transform: translate(0%,-0.1%);
+  width: 100%;
+  height: 13000px;
+  z-index: 0;
+  background: linear-gradient(135deg, #1b0711, #5c0d3a, #8e401c, #680c2c);
+  background-size: 100% 100%;
+  animation: gradientMove 25s ease infinite;
+
+   transition: background-image 1.5s ease;
+}
+.About-Me.light {
+  background: linear-gradient(135deg, #f5d6eb, #ffd6d6, #ffe5b4, #ffcce0); /* 👈 solo claro */
+}
+
+/* Animación sutil para darle vida */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+.Nox{
+  position: absolute;
+  top: 8400px;
+  left: 25%;
+  transform: translate(-15%, 0%);
+  width: 1200px;
+  height: auto; 
+  mix-blend-mode: luminosity;
+  /* Usa los mismos filtros en todas las variantes */
+  filter: invert(1);
+  z-index: 10;
+  transition: filter 1s ease, transform 1s ease;
+}
+
+.Nox.light{
+  /* evita 'none'; usa valores neutrales del mismo set */
+  filter: invert(0);
+}
+
+.Nox:hover{
+  transform: translate(-15%, -10%) scale(1) rotate(-0.45deg);
+  /* mismo set de funciones, distintos valores */
+}
+
+.video-container {
+  position: absolute;
+  top: 8700px;
+  left: 5%;
+  width: 100%;
+  max-width: 900px;   /* tamaño máximo del video */
+  margin: 2rem auto;  /* centrado con espacio vertical */
+  aspect-ratio: 16/9; /* mantiene proporción del video */
+  border: 2px solid #ddd; /* marquito sutil */
+  border-radius: 12px;    /* esquinas redondeadas */
+  overflow: hidden;       /* evita que el iframe sobresalga */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* sombra ligera */
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.Panoramic{
+  position: absolute;
+  top: 8650px;
+  left: 5%;
+  transform: translate(0%, 0%) rotate(0);
+  width: 75px;
+  height: auto; 
+  mix-blend-mode: luminosity;
+  /* Usa los mismos filtros en todas las variantes */
+  filter: invert(1) ;
+  z-index: 10;
+  transition: filter 1s ease, transform 0.5s ease;
+}
+
+.Panoramic.light{
+  filter: invert(0);
+}
+
+.Panoramic:hover{
+  transform: translate(0%, 0%) rotate(360deg);
+}
+
+.NoxPoster {
+  position: absolute;
+  top: 8680px;
+  left: 53%;
+  width: 810px;
+  opacity: 1;
+}
+
+.NoxRenders {
+  position: absolute;
+  top: 9550px;
+  left: 0%;
+  width: 1920px;
+  opacity: 1;
+}
+
+.Concept {
+  position: absolute;
+  top: 9650px;
+  left: 60%;
+  width: 650px;
+  height: auto; 
+  mix-blend-mode: luminosity;
+  /* Usa los mismos filtros en todas las variantes */
+  filter: invert(1);
+  z-index: 10;
+  transition: filter 1s ease, transform 1s ease;
+}
+
+.Concept.light{
+  filter: invert(0);
+}

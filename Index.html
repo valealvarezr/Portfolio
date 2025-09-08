@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Portfolio Vale Alvarez</title>
+
+		<link rel="stylesheet" href="public/index.css">
+
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@v0.163.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@v0.163.0/examples/jsm/"
+        }
+      }
+    </script>
+    
+	</head>
+    <body>
+      <div class="Fondo-Inicio">
+        <video id="themeVideo" autoplay loop muted playsinline>
+          <source src="Images/CocinaDiaVideo.mp4" type="video/mp4">
+          <!-- Fallback: imagen si no soporta video -->
+          <img src="images/CocinaBase.png" alt="Noche de fondo">
+        </video>
+        <img src="images/3dartist.png" class="threedartist">
+        <img src="images/Portfoli Title.png" class="Titul">
+        <img src="images/O Title.png" class="Titulo">
+        <img src="Images/Sol.png" class = LunaSol id="themeToggle">
+        <div class="About-Me">
+          <p></p>
+          <img src="Images/Sobremi.png" class="SobremiText">
+          <img src="Images/ValeFoto.png" class="ValeFoto">
+          <div class="contenedor-blender">
+            <img src="images/BlenderLogo.png" class="Blender">
+            <img src="images/cuatroEstrellas.png" class="estrellas-Blender">
+            <img src="images/habilidadesBlender.png" class="habilidades-Blender">
+          </div>
+          <div class="contenedor-substance">
+            <img src="images/Substance.png" class="Substance">
+            <img src="images/cuatroEstrellas.png" class="estrellas-Substance">
+            <img src="images/habilidadesSubstance.png" class="habilidades-Substance">
+          </div>
+
+          <img src="images/EchesTitle.png" class="EchoesTitle">
+          <video class="mi-video" autoplay loop muted playsinline>
+            <source src="Cabrera.webm" type="video/webm">
+            Tu navegador no soporta video transparente.
+          </video>
+          <video class="mi-videochime" autoplay loop muted playsinline>
+            <source src="SillaVale.webm" type="video/webm">
+            Tu navegador no soporta video transparente.
+          </video>
+          <img src="images/Echoes1.png" class="Echoes1">
+          <img src="images/Echoes2.png" class="Echoes2">
+          <img src="images/Echoes3.png" class="Echoes3">
+          
+
+          <img src="images/Nox.png" class="Nox">
+          <img src="images/360.png" class="Panoramic">
+          <img src="images/NoxPoster.png" class="NoxPoster">
+          <img src="images/NoxRenders.png" class="NoxRenders">
+          <img src="images/ConceptTitle.png" class="Concept">
+          <div class="video-container">
+            <iframe 
+              src="https://www.youtube.com/embed/rsPubY8bLgo" 
+              title="YouTube video"
+              frameborder="0" 
+              allow="encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+          
+
+
+        </div>
+        
+      </div>
+
+      <script>
+        const toggleBtn = document.getElementById("themeToggle");
+        const themeImage = document.getElementById("themeVideo");
+        const aboutMe = document.querySelector(".About-Me");
+        const sobreMiText = document.querySelector(".SobremiText");
+        const blender = document.querySelector(".Blender");
+        const estrellasBlender = document.querySelector(".estrellas-Blender");
+        const habilidadesBlender = document.querySelector(".habilidades-Blender");
+        const substance = document.querySelector(".Substance");
+        const estrellasSubstance = document.querySelector(".estrellas-Substance");
+        const habilidadesSubstance = document.querySelector(".habilidades-Substance");
+        const nox = document.querySelector(".Nox");
+        const panoramic = document.querySelector(".Panoramic");
+        const concept = document.querySelector(".Concept");
+        const echoestitle = document.querySelector(".EchoesTitle");
+
+        function cambiarImagenSuave(imgElement, newSrc, duracion = 500) {
+          // fade out
+          imgElement.style.opacity = 0;
+
+          setTimeout(() => {
+            // cuando termina el fade out, cambiamos el src
+            imgElement.src = newSrc;
+
+            // esperamos a que la nueva imagen cargue antes de hacer fade in
+            imgElement.onload = () => {
+              imgElement.style.opacity = 1;
+            };
+          }, duracion);
+        }
+
+        function cambiarVideoSuave(videoElement, newSrc, duracion = 500) {
+          // Guardar en qué segundo iba el video actual
+          const tiempoActual = videoElement.currentTime;
+
+          videoElement.style.opacity = 0;
+
+          setTimeout(() => {
+            videoElement.querySelector("source").src = newSrc;
+            videoElement.load();
+
+            // Cuando el nuevo video esté listo, saltamos al tiempo guardado
+            videoElement.onloadeddata = () => {
+              // Verificamos que no exceda la duración del nuevo video
+              const nuevoTiempo = Math.min(tiempoActual, videoElement.duration || tiempoActual);
+              videoElement.currentTime = nuevoTiempo;
+              videoElement.play();
+              videoElement.style.opacity = 1;
+            };
+          }, duracion);
+        }
+
+        
+        let darkMode = false;
+
+        toggleBtn.addEventListener("click", () => {
+          darkMode = !darkMode;
+
+          if (darkMode) {
+            cambiarImagenSuave(toggleBtn,"images/Luna.png");
+            cambiarVideoSuave(themeVideo,"images/CocinaDiaVideo.mp4");
+            
+          
+            // aplicar clases de modo oscuro
+            aboutMe.classList.add("light");
+            sobreMiText.classList.add("light");
+            blender.classList.add("light");
+            habilidadesBlender.classList.add("light");
+            estrellasBlender.classList.add("light");
+            substance.classList.add("light");
+            habilidadesSubstance.classList.add("light");
+            estrellasSubstance.classList.add("light");
+            nox.classList.add("light");
+            panoramic.classList.add("light");
+            concept.classList.add("light");
+            echoestitle.classList.add("light");
+
+          } else {
+            cambiarImagenSuave(toggleBtn,"images/Sol.png");
+            cambiarVideoSuave(themeVideo,"images/CocinaDiaVideo.mp4");
+          
+            // aplicar clases de modo oscuro
+            aboutMe.classList.remove("light");
+            sobreMiText.classList.remove("light");
+            blender.classList.remove("light");
+            habilidadesBlender.classList.remove("light");
+            estrellasBlender.classList.remove("light");
+            substance.classList.remove("light");
+            habilidadesSubstance.classList.remove("light");
+            estrellasSubstance.classList.remove("light");
+            nox.classList.remove("light");
+            panoramic.classList.remove("light");
+            concept.classList.remove("light");
+            echoestitle.classList.remove("light");
+          }
+        });
+      </script>
+      <script>
+        function limitarResolucion() {
+          if (window.innerWidth > 1440) {
+            document.body.style.maxWidth = "1440px";   // límite
+            document.body.style.margin = "0 auto";     // centrar
+          } else {
+            document.body.style.maxWidth = "100%";     // normal
+            document.body.style.margin = "0";
+          }
+        }
+
+        // ejecutar al cargar
+        window.addEventListener("load", limitarResolucion);
+        // ejecutar si redimensiona la ventana
+        window.addEventListener("resize", limitarResolucion);
+      </script>
+
+      <script type="module" src="./main.js"></script>
+      <script src="golpe.js"></script>
+    </body>
+
+
+
+
+</html>
