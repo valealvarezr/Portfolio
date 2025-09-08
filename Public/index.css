@@ -18,20 +18,6 @@ body {
   line-height: 1.6em;
 }
 
-#portfolio-wrapper {
-  width: 1920px;   /* tu base de diseño */
-  height: 1080px;  /* tu base de diseño */
-  position: relative;
-  transform-origin: top left;
-}
-
-body {
-  margin: 0;
-  background: #000;
-  overflow-x: hidden; /* evita scroll horizontal */
-}
-
-
 /* Preloader */
 #preloader {
   position: fixed;
