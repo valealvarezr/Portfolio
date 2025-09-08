@@ -31,6 +31,7 @@
         <div class="About-Me">
           <p></p>
           <img src="Images/Sobremi.png" class="SobremiText">
+          <img src="Images/SobreMiText.png" class="SobremiTexto">
           <img src="Images/ValeFoto.png" class="ValeFoto">
           <div class="contenedor-blender">
             <img src="Images/BlenderLogo.png" class="Blender">
@@ -42,8 +43,23 @@
             <img src="Images/CuatroEstrellas.png" class="estrellas-Substance">
             <img src="Images/habilidadesSubstance.png" class="habilidades-Substance">
           </div>
+          <div class="contenedor-Clip">
+            <img src="Images/Clip.png" class="Clip">
+            <img src="Images/CuatroEstrellas.png" class="estrellas-Clip">
+            <img src="Images/habilidadesClip.png" class="habilidades-Clip">
+          </div>
 
           <img src="Images/EchesTitle.png" class="EchoesTitle">
+          <img src="Images/EchoesText.png" class="EchoesTexto">
+          <div class="video-container-echoes">
+            <iframe 
+              src="https://www.youtube.com/embed/_k2y8_AW4do" 
+              title="YouTube video"
+              frameborder="0" 
+              allow="encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
           <video class="mi-video" autoplay loop muted playsinline>
             <source src="Cabrera.webm" type="video/webm">
             Tu navegador no soporta video transparente.
@@ -58,6 +74,7 @@
           
 
           <img src="Images/Nox.png" class="Nox">
+          <img src="Images/NoxText.png" class="NoxTexto">
           <img src="Images/360.png" class="Panoramic">
           <img src="Images/NoxPoster.png" class="NoxPoster">
           <img src="Images/NoxRenders.png" class="NoxRenders">
@@ -85,14 +102,20 @@
         const sobreMiText = document.querySelector(".SobremiText");
         const blender = document.querySelector(".Blender");
         const estrellasBlender = document.querySelector(".estrellas-Blender");
+        const estrellasClip = document.querySelector(".estrellas-Clip");
         const habilidadesBlender = document.querySelector(".habilidades-Blender");
         const substance = document.querySelector(".Substance");
         const estrellasSubstance = document.querySelector(".estrellas-Substance");
         const habilidadesSubstance = document.querySelector(".habilidades-Substance");
+        const habilidadesClip = document.querySelector(".habilidades-Clip");
         const nox = document.querySelector(".Nox");
         const panoramic = document.querySelector(".Panoramic");
         const concept = document.querySelector(".Concept");
         const echoestitle = document.querySelector(".EchoesTitle");
+        const clip = document.querySelector(".Clip");
+        const SobremiTexto = document.querySelector(".SobremiTexto");
+        const echoesTexto = document.querySelector(".EchoesTexto");
+        const noxTexto = document.querySelector(".NoxTexto");
 
         function cambiarImagenSuave(imgElement, newSrc, duracion = 500) {
           // fade out
@@ -149,11 +172,17 @@
             estrellasBlender.classList.add("light");
             substance.classList.add("light");
             habilidadesSubstance.classList.add("light");
+            habilidadesClip.classList.add("light");
             estrellasSubstance.classList.add("light");
+            estrellasClip.classList.add("light");
             nox.classList.add("light");
             panoramic.classList.add("light");
             concept.classList.add("light");
             echoestitle.classList.add("light");
+            clip.classList.add("light");
+            SobremiTexto.classList.add("light");
+            echoesTexto.classList.add("light");
+            noxTexto.classList.add("light");
 
           } else {
             cambiarImagenSuave(toggleBtn,"Images/Sol.png");
@@ -167,11 +196,17 @@
             estrellasBlender.classList.remove("light");
             substance.classList.remove("light");
             habilidadesSubstance.classList.remove("light");
+            habilidadesClip.classList.remove("light");
             estrellasSubstance.classList.remove("light");
+            estrellasClip.classList.remove("light");
             nox.classList.remove("light");
             panoramic.classList.remove("light");
             concept.classList.remove("light");
             echoestitle.classList.remove("light");
+            clip.classList.remove("light");
+            SobremiTexto.classList.remove("light");
+            echoesTexto.classList.remove("light");
+            noxTexto.classList.remove("light");
           }
         });
       </script>
