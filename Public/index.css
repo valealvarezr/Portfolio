@@ -17,7 +17,7 @@ body {
   justify-content: center; /* centra en pantallas grandes */
 }
 
-.page-wrapper {
+#page-wrapper {
   width: 1920px;       /* diseño base */
   transform-origin: top center;
 }
