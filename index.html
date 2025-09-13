@@ -27,9 +27,9 @@
       </div>
        <div id="page-wrapper">
       <!-- Pantalla de carga -->
-      <div id="preloader">
-        <div class="loader"></div>
-        <p>Loading portfolio...</p>
+       <div id="preloader">
+        <div class="loader"> </div>
+        <div id="progress-text">Loading Portfolio... 0%</div>
       </div>
       <div class="Fondo-Inicio">
         <video id="themeVideo" autoplay loop muted playsinline>
@@ -240,41 +240,76 @@
         window.addEventListener("resize", limitarResolucion);
       </script>
 
-      <script>
+     <script>
         function waitForVideo(videoElement) {
           return new Promise(resolve => {
             if (videoElement.readyState >= 3) {
-              resolve(); // ya está listo
+              resolve();
             } else {
               videoElement.addEventListener("canplaythrough", resolve, { once: true });
             }
           });
         }
 
-        // Pre-cargar el video de día sin mostrarlo
-        const videoDia = document.createElement("video");
-        videoDia.src = "Images/CocinaDiaVideo.mp4";
-        videoDia.preload = "auto";
+        function waitForImage(src) {
+          return new Promise(resolve => {
+            const img = new Image();
+            img.onload = resolve;
+            img.onerror = resolve; // aunque falle, lo contamos para no quedarnos atascados
+            img.src = src;
+          });
+        }
+
+        async function preloadResources() {
+          const videoNoche = document.getElementById("themeVideo");
+          const videoDia = document.createElement("video");
+          videoDia.src = "Images/CocinaDiaVideo.mp4";
+          videoDia.preload = "auto";
+
+          // lista de imágenes que quieras precargar
+          const images = [
+            "Images/portfolio1.jpg",
+            "Images/portfolio2.jpg",
+            "Images/portfolio3.jpg"
+            // agrega aquí todas las demás
+          ];
+
+          // lista de promesas
+          const resources = [
+            waitForVideo(videoNoche),
+            waitForVideo(videoDia),
+            ...images.map(src => waitForImage(src))
+          ];
+
+          let loaded = 0;
+          const total = resources.length;
+          const progressText = document.getElementById("progress-text");
+
+          // envolvemos cada recurso para actualizar el progreso cuando se cumpla
+          const trackedResources = resources.map(promise =>
+            promise.then(() => {
+              loaded++;
+              const percent = Math.round((loaded / total) * 100);
+              progressText.textContent = `Loading Portfolio... ${percent}%`;
+            })
+          );
+
+          await Promise.all(trackedResources);
+        }
 
         window.addEventListener("load", async () => {
           const preloader = document.getElementById("preloader");
-          const videoNoche = document.getElementById("themeVideo");
 
-          // esperar que ambos videos estén listos
-          await Promise.all([
-            waitForVideo(videoNoche),
-            waitForVideo(videoDia)
-          ]);
+          await preloadResources();
 
-          // ocultar preloader
           preloader.classList.add("hidden");
         });
-      </script>
+     </script>
 
       <script>
         function checkScreenWidth() {
           const rotateMessage = document.getElementById("rotateMessage");
-          if (window.innerWidth < 425) {
+          if (window.innerWidth < 450) {
             rotateMessage.style.display = "flex";
           } else {
             rotateMessage.style.display = "none";

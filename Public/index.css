@@ -97,7 +97,7 @@ body {
   margin-bottom: 20px;
 }
 
-#preloader p {
+#progress-text{
   color: #fff;
   font-family: Arial, sans-serif;
   font-size: 1.2rem;
