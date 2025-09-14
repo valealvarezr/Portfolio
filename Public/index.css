@@ -35,21 +35,51 @@ body {
   inset: 0;
   background: #0a0a0a;
   color: white;
-  display: none; /* oculto por defecto */
+  display: flex; /* visible para pruebas */
   justify-content: center;
   align-items: center;
   text-align: center;
   padding: 20px;
-  z-index: 10000; /* encima de todo */
+  z-index: 10000;
 }
 
 #rotateMessage .message-box {
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0);
   padding: 20px 30px;
   border-radius: 12px;
-  font-size: 1.2rem;
-  max-width: 400px;
+  font-size: 4rem;
+  max-width: 800px;
   line-height: 1.5;
+}
+
+/* Teléfono animado */
+.phone-icon {
+  width: 80px;
+  height: 150px;
+  margin: 0 auto 20px;
+  position: relative;
+  border: 5px solid white;
+  border-radius: 16px;
+  box-sizing: border-box;
+  animation: rotatePhone 3s infinite ease-in-out;
+}
+
+.phone-icon .screen {
+  position: absolute;
+  top: 10%;
+  left: 8%;
+  width: 84%;
+  height: 75%;
+  background: white;
+  border-radius: 8px;
+}
+
+/* Animación de rotar vertical -> horizontal */
+@keyframes rotatePhone {
+  0% { transform: rotate(0deg); }
+  40% { transform: rotate(90deg); }
+  60% { transform: rotate(90deg); }
+  100% { transform: rotate(0deg); }
 }
 
 .content {
