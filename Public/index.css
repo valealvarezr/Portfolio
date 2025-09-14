@@ -132,10 +132,10 @@ body {
 
 .mi-video {
   position: absolute;  
-  top: 8350px;      
-  left: 31.5%;            
+  top: 7030px;      
+  left: 76.1%;            
   width: auto;
-  height: 800px;      
+  height: 550px;      
   transform: translate(-50%, -20%); 
   z-index: 1;          
 }
@@ -143,10 +143,10 @@ body {
 .mi-videochime {
   position: absolute;  
   
-  top: 3030px;          
-  left: 78.5%;           
+  top: 5950px;          
+  left: 82%;           
   width: auto;
-  height: 900px;       
+  height: 600px;       
   transform: translate(-50%, -20%);
   z-index: 1;         
 }
@@ -224,8 +224,8 @@ body {
 }
 
 .LunaSol {
-      position: fixed;
-      top: 5%;
+      position: absolute;
+      top: 60px;
       left: 95%;
       transform: translate(-50%, -50%);
       width: 50px;
@@ -272,22 +272,18 @@ video {
 
 .SobremiText{
   position: absolute;
-  top: 0%;                 /* baja hasta la mitad */
-  left: 0%;                /* se coloca desde la mitad */
+  top: 30px;                 /* baja hasta la mitad */
+  left: 2%;                /* se coloca desde la mitad */
   transform: translate(0%, 0%); /* corrige en X y Y */
-  width: 1200px;
+  width: 1820px;
   height: auto; 
-  mix-blend-mode:luminosity;
-  filter:invert();
   z-index: 10;
   transition: filter 1.5s ease;
   transition: ease 1s;
+  border-radius: 12px;
 }
 .SobremiText.light{
   filter:none;
-}
-.SobremiText:hover{
-  transform: translate(6%, 0%) scale(1) rotate(-0.45deg);
 }
 
 .SobremiTexto{
@@ -311,59 +307,48 @@ video {
 
 .Blender{
   position: absolute;
-  top: 450px;                 /* baja hasta la mitad */
+  top: 860px;                 /* baja hasta la mitad */
   left: 23%;                /* se coloca desde la mitad */
   transform: translate(0%, 0%); /* corrige en X y Y */
-  width: 140px;
+  width: 100px;
   height: auto; 
   mix-blend-mode:luminosity;
-  filter:invert();
   z-index: 10;
   transition: filter 1.5s ease;
   transition: ease 0.3s;
-}
-.Blender.light{
-  filter:none;
 }
 .Blender:hover{
   transform: translate(0%, 1%) scale(1.2) rotate(-2deg);
 }
 
-
-
 .estrellas-Blender{
   position: absolute;
-  top: 600px;
-  left: 23%;
-  width: 150px;
+  top: 950px;
+  left: 23.5%;
+  width: 100px;
   opacity: 1;
   mix-blend-mode: luminosity;
   transition: 0.3s ease-in-out;
   transform: scale(1) rotate(0);
-  filter:invert();
+  z-index: 15;
 }
 
 .habilidades-Blender {
   position: absolute;
-  top: 600px;
-  left: 23%;
-  width: 150px;
+  top: 950px;
+  left: 23.5%;
+  width: 100px;
   opacity: 1;
   mix-blend-mode: luminosity;
   transition: 0.3s ease-in-out;
   transform: scale(0) rotate(-25deg);
-  filter:invert();
-}
-.estrellas-Blender.light,
-.habilidades-Blender.light {
-  filter:none;
+  z-index: 15;
 }
 
 .habilidades-Blender {
   opacity: 0; /* empieza oculta */
 }
 
-/* cuando pasas el mouse por la imagen Blender */
 .Blender:hover ~ .estrellas-Blender {
   opacity: 0; /* desaparece */
   transform: scale(0) rotate(15deg);
@@ -374,17 +359,14 @@ video {
   transform: scale(1) rotate(0deg);
 }
 
-
-
 .Substance{
   position: absolute;
-  top: 450px;                 /* baja hasta la mitad */
-  left: 35%;                /* se coloca desde la mitad */
+  top: 860px;                 /* baja hasta la mitad */
+  left: 34.5%;                /* se coloca desde la mitad */
   transform: translate(0%, 0%); /* corrige en X y Y */
-  width: 130px;
+  width: 90px;
   height: auto; 
   mix-blend-mode:luminosity;
-  filter:invert();
   z-index: 10;
   transition: filter 1.5s ease;
   transition: ease 0.3s;
@@ -396,41 +378,34 @@ video {
   transform: translate(0%, 1%) scale(1.2) rotate(-2deg);
 }
 
-
-
 .estrellas-Substance{
   position: absolute;
-  top: 600px;
-  left: 34.5%;
-  width: 150px;
+  top: 950px;
+  left: 34.3%;
+  width: 100px;
   opacity: 1;
   mix-blend-mode: luminosity;
   transition: 0.3s ease-in-out;
   transform: scale(1) rotate(0);
-  filter:invert();
+  z-index: 15;
 }
 
 .habilidades-Substance {
   position: absolute;
-  top: 600px;
-  left: 34.5%;
-  width: 150px;
+  top: 959px;
+  left: 34.3%;
+  width: 95px;
   opacity: 1;
-  mix-blend-mode: luminosity;
   transition: 0.3s ease-in-out;
+  mix-blend-mode: luminosity;
   transform: scale(0) rotate(-25deg);
-  filter:invert();
-}
-.estrellas-Substance.light,
-.habilidades-Substance.light {
-  filter:none;
+  z-index: 15;
 }
 
 .habilidades-Substance {
   opacity: 0; /* empieza oculta */
 }
 
-/* cuando pasas el mouse por la imagen Blender */
 .Substance:hover ~ .estrellas-Substance {
   opacity: 0; /* desaparece */
   transform: scale(0) rotate(15deg);
@@ -443,13 +418,12 @@ video {
 
 .Clip{
   position: absolute;
-  top: 440px;                 /* baja hasta la mitad */
+  top: 850px;                 /* baja hasta la mitad */
   left: 45%;                /* se coloca desde la mitad */
   transform: translate(0%, 0%); /* corrige en X y Y */
-  width: 160px;
+  width: 110px;
   height: auto; 
   mix-blend-mode:luminosity;
-  filter:invert();
   z-index: 10;
   transition: filter 1.5s ease;
   transition: ease 0.3s;
@@ -461,41 +435,34 @@ video {
   transform: translate(0%, 1%) scale(1.2) rotate(-2deg);
 }
 
-
-
 .estrellas-Clip{
   position: absolute;
-  top: 600px;
-  left: 45.5%;
-  width: 150px;
+  top: 950px;
+  left: 45.3%;
+  width: 100px;
+  z-index: 10;
   opacity: 1;
   mix-blend-mode: luminosity;
   transition: 0.3s ease-in-out;
   transform: scale(1) rotate(0);
-  filter:invert();
 }
 
 .habilidades-Clip {
   position: absolute;
-  top: 600px;
-  left: 45.5%;
-  width: 150px;
+  top: 959px;
+  left: 45.3%;
+  width: 95px;
+  z-index: 10;
   opacity: 1;
   mix-blend-mode: luminosity;
   transition: 0.3s ease-in-out;
   transform: scale(0) rotate(-25deg);
-  filter:invert();
-}
-.estrellas-Clip.light,
-.habilidades-Clip.light {
-  filter:none;
 }
 
 .habilidades-Clip {
   opacity: 0; /* empieza oculta */
 }
 
-/* cuando pasas el mouse por la imagen Blender */
 .Clip:hover ~ .estrellas-Clip {
   opacity: 0; /* desaparece */
   transform: scale(0) rotate(15deg);
@@ -508,23 +475,14 @@ video {
 
 .EchoesTitle{
   position: absolute;
-  top: 750px;                 /* baja hasta la mitad */
-  left: 3%;                /* se coloca desde la mitad */
+  top: 2150px;                 /* baja hasta la mitad */
+  left: 2%;                /* se coloca desde la mitad */
   transform: translate(0%, 0%); /* corrige en X y Y */
-  width: 950px;
+  width: 1820px;
   height: auto; 
   z-index: 10;
-  filter: invert(1);
   transition: 0.5s ease;
-}
-
-.EchoesTitle:hover{
-  transform: translate(0%, -5%) scale(1) rotate(-0.45deg);
-  /* mismo set de funciones, distintos valores */
-}
-
-.EchoesTitle.light{
-  filter: invert(0);
+  border-radius: 12px;
 }
 
 .EchoesTexto{
@@ -546,36 +504,86 @@ video {
 
 .Echoes1 {
   position: absolute;
-  top: 1750px;
-  left: 0%;
-  width: 1920px;
+  top: 1090px;
+  left: 2%;
+  width: 1820px;
   opacity: 1;
+  border-radius: 12px;
 }
 .Echoes2 {
   position: absolute;
-  top: 4150px;
-  left: 0%;
-  width: 1920px;
+  top: 3220px;
+  left: 2%;
+  width: 1820px;
   opacity: 1;
+  border-radius: 12px;
 }
 .Echoes3 {
   position: absolute;
-  top: 6650px;
-  left: 0%;
-  width: 1920px;
+  top: 5380px;
+  left: 2%;
+  width: 1820px;
   opacity: 1;
+  border-radius: 12px;
 }
+.Echoes4 {
+  position: absolute;
+  top: 6450px;
+  left: 2%;
+  width: 1820px;
+  opacity: 1;
+  border-radius: 12px;
+}
+
+.Nox1 {
+  position: absolute;
+  top: 7520px;
+  left: 2%;
+  width: 1820px;
+  opacity: 1;
+  border-radius: 12px;
+}
+.Nox2 {
+  position: absolute;
+  top: 8560px;
+  left: 2%;
+  width: 1820px;
+  opacity: 1;
+  border-radius: 12px;
+}
+.video-container {
+  position: absolute;
+  top: 8570px;
+  left: 4%;
+  width: 100%;
+  max-width: 870px;  
+  margin: 2rem auto; 
+  aspect-ratio: 17/9; 
+  border-radius: 20px;  
+  overflow: hidden;     
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+}
+
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 
 
 .video-container-echoes {
   position: absolute;
-  top: 1130px;
-  left: 3%;
+  top: 4260px;
+  left: 2%;
   width: 100%;
-  max-width: 900px;   /* tamaño máximo del video */
+  max-width: 1780px;   /* tamaño máximo del video */
   margin: 2rem auto;  /* centrado con espacio vertical */
   aspect-ratio: 16/9; /* mantiene proporción del video */
-  border: 2px solid #ddd; /* marquito sutil */
+  border: 20px solid #f4e9d5; /* marquito sutil */
   border-radius: 12px;    /* esquinas redondeadas */
   overflow: hidden;       /* evita que el iframe sobresalga */
   box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* sombra ligera */
@@ -595,17 +603,15 @@ video {
   position:absolute;
   transform: translate(0%,-0.1%);
   width: 100%;
-  height: 14000px;
+  height: 9670px;
   z-index: 0;
-  background: linear-gradient(135deg, #1b0711, #5c0d3a, #8e401c, #680c2c);
+  background: linear-gradient(135deg, #f5d6eb, #ffd6d6, #ffe5b4, #ffcce0); /* 👈 solo claro */
   background-size: 100% 100%;
   animation: gradientMove 25s ease infinite;
 
    transition: background-image 1.5s ease;
 }
-.About-Me.light {
-  background: linear-gradient(135deg, #f5d6eb, #ffd6d6, #ffe5b4, #ffcce0); /* 👈 solo claro */
-}
+
 
 /* Animación sutil para darle vida */
 @keyframes gradientMove {
@@ -614,7 +620,7 @@ video {
   100% { background-position: 0% 50%; }
 }
 
-
+/*
 .Nox{
   position: absolute;
   top: 9150px;
@@ -623,27 +629,24 @@ video {
   width: 1200px;
   height: auto; 
   mix-blend-mode: luminosity;
-  /* Usa los mismos filtros en todas las variantes */
   filter: invert(1);
   z-index: 10;
   transition: filter 1s ease, transform 1s ease;
 }
 
 .Nox.light{
-  /* evita 'none'; usa valores neutrales del mismo set */
   filter: invert(0);
 }
 
 .Nox:hover{
   transform: translate(-15%, -10%) scale(1) rotate(-0.45deg);
-  /* mismo set de funciones, distintos valores */
 }
 
 .NoxTexto{
   position: absolute;
-  top: 9870px;                 /* baja hasta la mitad */
-  left: 5%;                /* se coloca desde la mitad */
-  transform: translate(0%, 0%); /* corrige en X y Y */
+  top: 9870px;              
+  left: 5%;             
+  transform: translate(0%, 0%); 
   width: 970px;
   height: auto; 
   mix-blend-mode:luminosity;
@@ -656,28 +659,8 @@ video {
   filter:invert(0);
 }
 
-.video-container {
-  position: absolute;
-  top: 9450px;
-  left: 5%;
-  width: 100%;
-  max-width: 900px;   /* tamaño máximo del video */
-  margin: 2rem auto;  /* centrado con espacio vertical */
-  aspect-ratio: 16/9; /* mantiene proporción del video */
-  border: 2px solid #ddd; /* marquito sutil */
-  border-radius: 12px;    /* esquinas redondeadas */
-  overflow: hidden;       /* evita que el iframe sobresalga */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* sombra ligera */
-}
 
 
-.video-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
 
 .Panoramic{
   position: absolute;
@@ -687,7 +670,6 @@ video {
   width: 75px;
   height: auto; 
   mix-blend-mode: luminosity;
-  /* Usa los mismos filtros en todas las variantes */
   filter: invert(1) ;
   z-index: 10;
   transition: filter 1s ease, transform 0.5s ease;
@@ -700,6 +682,7 @@ video {
 .Panoramic:hover{
   transform: translate(0%, 0%) rotate(360deg);
 }
+
 
 .NoxPoster {
   position: absolute;
@@ -724,7 +707,6 @@ video {
   width: 650px;
   height: auto; 
   mix-blend-mode: luminosity;
-  /* Usa los mismos filtros en todas las variantes */
   filter: invert(1);
   z-index: 10;
   transition: filter 1s ease, transform 1s ease;
@@ -733,3 +715,59 @@ video {
 .Concept.light{
   filter: invert(0);
 }
+*/
+
+.site-footer {
+  position: fixed;
+  bottom: -100px;        /* escondido fuera de la pantalla */
+  left: 0;
+  width: 100%;
+  background: #111;
+  color: #fff;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 16px;
+  border-top: 1px solid #444;
+  z-index: 10000;
+  transition: bottom 0.28s ease, opacity 0.28s ease;
+  opacity: 0;
+  pointer-events: none;  /* cuando está oculto no responde */
+}
+
+/* cuando queremos mostrarlo */
+.site-footer.visible {
+  bottom: 0;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.site-footer .footer-name {
+  font-family: 'Six Caps', sans-serif;
+  font-size: 35px;
+  letter-spacing: 2px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.site-footer .footer-btn {
+  color: #fff;
+  font-size: 30px;
+  background: #222;
+  border-radius: 50%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: transform 0.2s, background 0.2s, color 0.2s;
+}
+
+.site-footer .footer-btn:hover {
+  transform: scale(1.15);
+  background: #ce12f3;
+  color: #111;
+}
+

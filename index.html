@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+    <link href="https://fonts.googleapis.com/css2?family=Six+Caps&display=swap" rel="stylesheet">
+
 		<meta charset="utf-8">
 		<title>Portfolio Vale Alvarez</title>
 
@@ -18,7 +20,7 @@
     
 	</head>
     <link rel="preload" href="Images/CocinaDiaVideo.mp4" as="video" type="video/mp4">
-    <body>
+    <body id="top">
       <!-- Overlay aviso orientación -->
       <div id="rotateMessage">
         <div class="message-box">
@@ -42,10 +44,7 @@
         <img src="Images/OTitle.png" class="Titulo">
         <img src="Images/Sol.png" class = LunaSol id="themeToggle">
         <div class="About-Me">
-          <p></p>
-          <img src="Images/Sobremi.png" class="SobremiText">
-          <img src="Images/SobreMiText.png" class="SobremiTexto">
-          <img src="Images/ValeFoto.png" class="ValeFoto">
+          <img src="Images/1.jpg" class="SobremiText">
           <div class="contenedor-blender">
             <img src="Images/BlenderLogo.png" class="Blender">
             <img src="Images/CuatroEstrellas.png" class="estrellas-Blender">
@@ -61,9 +60,8 @@
             <img src="Images/CuatroEstrellas.png" class="estrellas-Clip">
             <img src="Images/habilidadesClip.png" class="habilidades-Clip">
           </div>
-
-          <img src="Images/EchesTitle.png" class="EchoesTitle">
-          <img src="Images/EchoesText.png" class="EchoesTexto">
+          <img src="Images/2.jpg" class="Echoes1">
+          <img src="Images/3.jpg" class="EchoesTitle">
           <div class="video-container-echoes">
             <iframe 
               src="https://www.youtube.com/embed/_k2y8_AW4do" 
@@ -81,17 +79,12 @@
             <source src="SillaVale.webm" type="video/webm">
             Tu navegador no soporta video transparente.
           </video>
-          <img src="Images/Echoes1.png" class="Echoes1">
-          <img src="Images/Echoes2.png" class="Echoes2">
-          <img src="Images/Echoes3.png" class="Echoes3">
-          
+          <img src="Images/4.jpg" class="Echoes2">
+          <img src="Images/5.jpg" class="Echoes3">
+          <img src="Images/6.jpg" class="Echoes4">
 
-          <img src="Images/Nox.png" class="Nox">
-          <img src="Images/NoxText.png" class="NoxTexto">
-          <img src="Images/360.png" class="Panoramic">
-          <img src="Images/NoxPoster.png" class="NoxPoster">
-          <img src="Images/NoxRenders.png" class="NoxRenders">
-          <img src="Images/ConceptTitle.png" class="Concept">
+          <img src="Images/7.jpg" class="Nox1">
+          <img src="Images/8.jpg" class="Nox2">
           <div class="video-container">
             <iframe 
               src="https://www.youtube.com/embed/rsPubY8bLgo" 
@@ -101,34 +94,67 @@
               allowfullscreen>
             </iframe>
           </div>
-          
-
   </div>
-        </div>
-        
-      </div>
+
+    <footer class="site-footer">
+      <a href="#top" class="footer-btn footer-name" title="Ir al inicio">
+        Valeria Alvarez
+      </a>
+      <a href="mailto:valalvarios@gmail.com" class="footer-btn" title="Contact me">
+        <i class="fas fa-envelope"></i>
+      </a>
+      <a href="Docs/CV_VALERIA ALVAREZ RIOS.pdf" class="footer-btn" title="Download my CV" download>
+        <i class="fas fa-file-alt"></i>
+      </a>
+    </footer>
+
+      <!-- Cargar Font Awesome para íconos -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+     <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const footer = document.querySelector(".site-footer");
+        if (!footer) return; // si no existe, salimos sin errores
+
+        // parámetros ajustables
+        const nearBottomThreshold = 200; // px antes del final para forzar mostrar
+        const minScrolledToTriggerOnUp = 100; // solo mostrar al subir si hemos bajado al menos esto
+
+        // inicio: el último scroll es la posición actual (evita flash)
+        let lastScroll = window.pageYOffset || 0;
+
+        function handleScroll() {
+          const currentScroll = window.pageYOffset || 0;
+          const scrolledDownEnough = currentScroll > minScrolledToTriggerOnUp;
+          const nearBottom = (currentScroll + window.innerHeight) >= (document.documentElement.scrollHeight - nearBottomThreshold);
+
+          // prioridad: si estamos cerca del final, siempre mostrar
+          if (nearBottom) {
+            footer.classList.add("visible");
+          }
+          // si no estamos cerca del final: mostrar solo si scrolleamos hacia arriba
+          else if (currentScroll < lastScroll && scrolledDownEnough) {
+            footer.classList.add("visible");
+          } else {
+            footer.classList.remove("visible");
+          }
+
+          lastScroll = currentScroll;
+        }
+
+        // escuchador de scroll (passive para mejor rendimiento)
+        window.addEventListener("scroll", handleScroll, { passive: true });
+
+        // chequeo inicial por si el usuario carga ya cerca del final
+        handleScroll();
+      });
+      </script>
+
 
       <script>
         const toggleBtn = document.getElementById("themeToggle");
         const themeImage = document.getElementById("themeVideo");
-        const aboutMe = document.querySelector(".About-Me");
-        const sobreMiText = document.querySelector(".SobremiText");
-        const blender = document.querySelector(".Blender");
-        const estrellasBlender = document.querySelector(".estrellas-Blender");
-        const estrellasClip = document.querySelector(".estrellas-Clip");
-        const habilidadesBlender = document.querySelector(".habilidades-Blender");
-        const substance = document.querySelector(".Substance");
-        const estrellasSubstance = document.querySelector(".estrellas-Substance");
-        const habilidadesSubstance = document.querySelector(".habilidades-Substance");
-        const habilidadesClip = document.querySelector(".habilidades-Clip");
-        const nox = document.querySelector(".Nox");
-        const panoramic = document.querySelector(".Panoramic");
-        const concept = document.querySelector(".Concept");
-        const echoestitle = document.querySelector(".EchoesTitle");
-        const clip = document.querySelector(".Clip");
-        const SobremiTexto = document.querySelector(".SobremiTexto");
-        const echoesTexto = document.querySelector(".EchoesTexto");
-        const noxTexto = document.querySelector(".NoxTexto");
 
         function cambiarImagenSuave(imgElement, newSrc, duracion = 500) {
           // fade out
@@ -175,51 +201,10 @@
           if (darkMode) {
             cambiarImagenSuave(toggleBtn,"Images/Luna.png");
             cambiarVideoSuave(themeVideo,"Images/CocinaDiaVideo.mp4");
-            
-          
-            // aplicar clases de modo oscuro
-            aboutMe.classList.add("light");
-            sobreMiText.classList.add("light");
-            blender.classList.add("light");
-            habilidadesBlender.classList.add("light");
-            estrellasBlender.classList.add("light");
-            substance.classList.add("light");
-            habilidadesSubstance.classList.add("light");
-            habilidadesClip.classList.add("light");
-            estrellasSubstance.classList.add("light");
-            estrellasClip.classList.add("light");
-            nox.classList.add("light");
-            panoramic.classList.add("light");
-            concept.classList.add("light");
-            echoestitle.classList.add("light");
-            clip.classList.add("light");
-            SobremiTexto.classList.add("light");
-            echoesTexto.classList.add("light");
-            noxTexto.classList.add("light");
 
           } else {
             cambiarImagenSuave(toggleBtn,"Images/Sol.png");
             cambiarVideoSuave(themeVideo,"Images/CocinaNocheVideo.mp4");
-          
-            // aplicar clases de modo oscuro
-            aboutMe.classList.remove("light");
-            sobreMiText.classList.remove("light");
-            blender.classList.remove("light");
-            habilidadesBlender.classList.remove("light");
-            estrellasBlender.classList.remove("light");
-            substance.classList.remove("light");
-            habilidadesSubstance.classList.remove("light");
-            habilidadesClip.classList.remove("light");
-            estrellasSubstance.classList.remove("light");
-            estrellasClip.classList.remove("light");
-            nox.classList.remove("light");
-            panoramic.classList.remove("light");
-            concept.classList.remove("light");
-            echoestitle.classList.remove("light");
-            clip.classList.remove("light");
-            SobremiTexto.classList.remove("light");
-            echoesTexto.classList.remove("light");
-            noxTexto.classList.remove("light");
           }
         });
       </script>
@@ -266,12 +251,29 @@
           videoDia.src = "Images/CocinaDiaVideo.mp4";
           videoDia.preload = "auto";
 
-          // lista de imágenes que quieras precargar
+          // todas las imágenes usadas en el HTML
           const images = [
-            "Images/portfolio1.jpg",
-            "Images/portfolio2.jpg",
-            "Images/portfolio3.jpg"
-            // agrega aquí todas las demás
+            "Images/imagennoche.png",
+            "Images/3dartist.png",
+            "Images/PortfoliTitle.png",
+            "Images/OTitle.png",
+            "Images/Sol.png",
+            "Images/Luna.png",
+            "Images/BlenderLogo.png",
+            "Images/CuatroEstrellas.png",
+            "Images/habilidadesBlender.png",
+            "Images/Substance.png",
+            "Images/habilidadesSubstance.png",
+            "Images/Clip.png",
+            "Images/habilidadesClip.png",
+            "Images/1.jpg",
+            "Images/2.jpg",
+            "Images/3.jpg",
+            "Images/4.jpg",
+            "Images/5.jpg",
+            "Images/6.jpg",
+            "Images/7.jpg",
+            "Images/8.jpg"
           ];
 
           // lista de promesas
@@ -323,6 +325,9 @@
 
       <script type="module" src="./main.js"></script>
       <script src="golpe.js"></script>
+
+
+    
     </body>
 
 
