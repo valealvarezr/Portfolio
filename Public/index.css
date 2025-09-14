@@ -52,14 +52,14 @@ body {
   line-height: 1.5;
 }
 
-/* Teléfono animado */
 .phone-icon {
   width: 80px;
   height: 150px;
   margin: 0 auto 20px;
   position: relative;
-  border: 5px solid white;
+  border: 5px solid #ffffff;   /* fuerza blanco absoluto */
   border-radius: 16px;
+  background: #111;            /* agrega fondo oscuro al cuerpo del teléfono */
   box-sizing: border-box;
   animation: rotatePhone 3s infinite ease-in-out;
 }
@@ -70,10 +70,9 @@ body {
   left: 8%;
   width: 84%;
   height: 75%;
-  background: white;
+  background: #ffffff;        /* pantalla bien visible */
   border-radius: 8px;
 }
-
 /* Animación de rotar vertical -> horizontal */
 @keyframes rotatePhone {
   0% { transform: rotate(0deg); }
