@@ -18,6 +18,8 @@
         }
       }
     </script>
+
+    
     
 	</head>
     <link rel="preload" href="Images/CocinaDiaVideo.mp4" as="video" type="video/mp4">
@@ -32,15 +34,16 @@
           <p>For a better experience, rotate your device.</p>
         </div>
       </div>
-       <div id="page-wrapper">
+      
       <!-- Pantalla de carga -->
        <div id="preloader">
         <div class="loader"> </div>
         <div id="progress-text">Loading Portfolio... 0%</div>
       </div>
-      <div class="Fondo-Inicio">
-        <video id="themeVideo" autoplay loop muted playsinline>
-          <source src="Images/CocinaNocheVideo.mp4" type="video/mp4">
+        <div id="app-wrapper">
+          <div class="Fondo-Inicio">
+           <video id="themeVideo" autoplay loop muted playsinline>
+              <source src="Images/CocinaNocheVideo.mp4" type="video/mp4">
           <!-- Fallback: imagen si no soporta video -->
           <img src="Images/imagennoche.png" alt="Noche de fondo">
         </video>
@@ -313,7 +316,7 @@
         });
      </script>
 
-    <script>
+      <script>
         function isMobileDevice() {
           return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
         }
@@ -328,35 +331,29 @@
               rotateMessage.style.display = "none";
             }
           } else {
-            // en PC nunca mostrar
-            rotateMessage.style.display = "none";
+            rotateMessage.style.display = "none"; // nunca mostrar en PC
           }
         }
 
-        window.addEventListener("load", checkOrientation);
-        window.addEventListener("resize", checkOrientation);
+        // primero escalamos, luego chequeamos orientación
+        window.addEventListener("load", () => {
+          scaleTo1920(); 
+          checkOrientation();
+        });
+
+        window.addEventListener("resize", () => {
+          scaleTo1920();
+          checkOrientation();
+        });
+
         window.addEventListener("orientationchange", checkOrientation);
       </script>
-
-      <script>
-        function scaleTo1920() {
-          const scale = window.innerWidth / 1920;
-          document.body.style.transformOrigin = "top center";
-          document.body.style.transform = `scale(${scale})`;
-          document.body.style.width = "1920px"; // base fija
-          document.body.style.overflowX = "hidden"; // evita scroll horizontal
-        }
-
-        window.addEventListener("load", scaleTo1920);
-        window.addEventListener("resize", scaleTo1920);
-      </script>
+      
 
 
       <script type="module" src="./main.js"></script>
       <script src="golpe.js"></script>
-
-
-    
+      
     </body>
 
 

@@ -1,6 +1,9 @@
 
 html, body {
-  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* evita scroll horizontal */
+  
 }
 
 body {
@@ -30,17 +33,16 @@ body {
 }
 
 /* Overlay mensaje horizontal */
+/* siempre oculto de entrada */
 #rotateMessage {
+  display: none;
   position: fixed;
   inset: 0;
-  background: #0a0a0a;
-  color: white;
-  display: flex; /* visible para pruebas */
   justify-content: center;
   align-items: center;
-  text-align: center;
-  padding: 20px;
-  z-index: 10000;
+  background: rgba(0,0,0,0.85);
+  color: white;
+  z-index: 9999;
 }
 
 #rotateMessage .message-box {
