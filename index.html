@@ -4,6 +4,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Six+Caps&display=swap" rel="stylesheet">
 
 		<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Portfolio Vale Alvarez</title>
 
 		<link rel="stylesheet" href="Public/index.css">
@@ -312,23 +313,44 @@
         });
      </script>
 
-      <script>
-        function checkScreenWidth() {
+    <script>
+        function isMobileDevice() {
+          return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        }
+
+        function checkOrientation() {
           const rotateMessage = document.getElementById("rotateMessage");
 
-          // Normalizamos el ancho para que el zoom o la escala de Windows no afecten
-          const realWidth = window.innerWidth * window.devicePixelRatio;
-
-          if (realWidth < 1920) {
-            rotateMessage.style.display = "flex";
+          if (isMobileDevice()) {
+            if (window.matchMedia("(orientation: portrait)").matches) {
+              rotateMessage.style.display = "flex";
+            } else {
+              rotateMessage.style.display = "none";
+            }
           } else {
+            // en PC nunca mostrar
             rotateMessage.style.display = "none";
           }
         }
 
-        window.addEventListener("load", checkScreenWidth);
-        window.addEventListener("resize", checkScreenWidth);
+        window.addEventListener("load", checkOrientation);
+        window.addEventListener("resize", checkOrientation);
+        window.addEventListener("orientationchange", checkOrientation);
       </script>
+
+      <script>
+        function scaleTo1920() {
+          const scale = window.innerWidth / 1920;
+          document.body.style.transformOrigin = "top center";
+          document.body.style.transform = `scale(${scale})`;
+          document.body.style.width = "1920px"; // base fija
+          document.body.style.overflowX = "hidden"; // evita scroll horizontal
+        }
+
+        window.addEventListener("load", scaleTo1920);
+        window.addEventListener("resize", scaleTo1920);
+      </script>
+
 
       <script type="module" src="./main.js"></script>
       <script src="golpe.js"></script>
