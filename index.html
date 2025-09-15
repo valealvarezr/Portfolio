@@ -315,14 +315,17 @@
       <script>
         function checkScreenWidth() {
           const rotateMessage = document.getElementById("rotateMessage");
-          if (window.innerWidth < 1820) {
+
+          // Normalizamos el ancho para que el zoom o la escala de Windows no afecten
+          const realWidth = window.innerWidth * window.devicePixelRatio;
+
+          if (realWidth < 1920) {
             rotateMessage.style.display = "flex";
           } else {
             rotateMessage.style.display = "none";
           }
         }
 
-        // Revisar en carga y al redimensionar
         window.addEventListener("load", checkScreenWidth);
         window.addEventListener("resize", checkScreenWidth);
       </script>
