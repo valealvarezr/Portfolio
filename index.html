@@ -4,7 +4,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Six+Caps&display=swap" rel="stylesheet">
 
 		<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Portfolio Vale Alvarez</title>
 
 		<link rel="stylesheet" href="Public/index.css">
@@ -18,8 +17,6 @@
         }
       }
     </script>
-
-    
     
 	</head>
     <link rel="preload" href="Images/CocinaDiaVideo.mp4" as="video" type="video/mp4">
@@ -34,16 +31,15 @@
           <p>For a better experience, rotate your device.</p>
         </div>
       </div>
-      
+       <div id="page-wrapper">
       <!-- Pantalla de carga -->
        <div id="preloader">
         <div class="loader"> </div>
         <div id="progress-text">Loading Portfolio... 0%</div>
       </div>
-        <div id="app-wrapper">
-          <div class="Fondo-Inicio">
-           <video id="themeVideo" autoplay loop muted playsinline>
-              <source src="Images/CocinaNocheVideo.mp4" type="video/mp4">
+      <div class="Fondo-Inicio">
+        <video id="themeVideo" autoplay loop muted playsinline>
+          <source src="Images/CocinaNocheVideo.mp4" type="video/mp4">
           <!-- Fallback: imagen si no soporta video -->
           <img src="Images/imagennoche.png" alt="Noche de fondo">
         </video>
@@ -317,43 +313,25 @@
      </script>
 
       <script>
-        function isMobileDevice() {
-          return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-        }
-
-        function checkOrientation() {
+        function checkScreenWidth() {
           const rotateMessage = document.getElementById("rotateMessage");
-
-          if (isMobileDevice()) {
-            if (window.matchMedia("(orientation: portrait)").matches) {
-              rotateMessage.style.display = "flex";
-            } else {
-              rotateMessage.style.display = "none";
-            }
+          if (window.innerWidth < 1820) {
+            rotateMessage.style.display = "flex";
           } else {
-            rotateMessage.style.display = "none"; // nunca mostrar en PC
+            rotateMessage.style.display = "none";
           }
         }
 
-        // primero escalamos, luego chequeamos orientación
-        window.addEventListener("load", () => {
-          scaleTo1920(); 
-          checkOrientation();
-        });
-
-        window.addEventListener("resize", () => {
-          scaleTo1920();
-          checkOrientation();
-        });
-
-        window.addEventListener("orientationchange", checkOrientation);
+        // Revisar en carga y al redimensionar
+        window.addEventListener("load", checkScreenWidth);
+        window.addEventListener("resize", checkScreenWidth);
       </script>
-      
-
 
       <script type="module" src="./main.js"></script>
       <script src="golpe.js"></script>
-      
+
+
+    
     </body>
 
 
