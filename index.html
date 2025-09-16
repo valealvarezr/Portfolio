@@ -2,12 +2,10 @@
 <html lang="en">
 	<head>
     <link href="https://fonts.googleapis.com/css2?family=Six+Caps&display=swap" rel="stylesheet">
-
 		<meta charset="utf-8">
 		<title>Portfolio Vale Alvarez</title>
-
 		<link rel="stylesheet" href="Public/index.css">
-
+    <link rel="preload" href="Images/CocinaDiaVideo.mp4" as="video" type="video/mp4">
     <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
     <script type="importmap">
       {
@@ -17,9 +15,7 @@
         }
       }
     </script>
-    
 	</head>
-    <link rel="preload" href="Images/CocinaDiaVideo.mp4" as="video" type="video/mp4">
     <body id="top">
       <!-- Overlay aviso orientación -->
       <div id="rotateMessage">
@@ -28,7 +24,7 @@
             <div class="phone"></div>
             <div class="screen"></div>
           </div>
-          <p>For a better experience, rotate your device.</p>
+          <p>For a better experience, rotate your device or zoom out the page (Ctrl -).</p>
         </div>
       </div>
        <div id="page-wrapper">
@@ -101,7 +97,7 @@
   </div>
 
     <footer class="site-footer">
-      <a href="#top" class="footer-btn footer-name" title="Ir al inicio">
+      <a href="#top" class="footer-btn footer-name" title="Go up">
         Valeria Alvarez
       </a>
       <a href="mailto:valalvarios@gmail.com" class="footer-btn" title="Contact me">
@@ -115,31 +111,36 @@
       <!-- Cargar Font Awesome para íconos -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-
      <script>
+      // Script mejorado para el comportamiento del footer
       document.addEventListener("DOMContentLoaded", () => {
         const footer = document.querySelector(".site-footer");
-        if (!footer) return; // si no existe, salimos sin errores
+        if (!footer) return;
 
-        // parámetros ajustables
-        const nearBottomThreshold = 200; // px antes del final para forzar mostrar
-        const minScrolledToTriggerOnUp = 100; // solo mostrar al subir si hemos bajado al menos esto
-
-        // inicio: el último scroll es la posición actual (evita flash)
+        const nearBottomThreshold = 200; 
+        const minScrolledToTriggerOnUp = 100; 
         let lastScroll = window.pageYOffset || 0;
+        let footerTimeout = null;
 
         function handleScroll() {
           const currentScroll = window.pageYOffset || 0;
           const scrolledDownEnough = currentScroll > minScrolledToTriggerOnUp;
           const nearBottom = (currentScroll + window.innerHeight) >= (document.documentElement.scrollHeight - nearBottomThreshold);
 
-          // prioridad: si estamos cerca del final, siempre mostrar
+          // Limpiar timeout anterior si existe
+          if (footerTimeout) {
+            clearTimeout(footerTimeout);
+          }
+          
           if (nearBottom) {
             footer.classList.add("visible");
           }
-          // si no estamos cerca del final: mostrar solo si scrolleamos hacia arriba
           else if (currentScroll < lastScroll && scrolledDownEnough) {
             footer.classList.add("visible");
+            // Ocultar después de 3 segundos si no hay más interacción
+            footerTimeout = setTimeout(() => {
+              if (!nearBottom) footer.classList.remove("visible");
+            }, 3000);
           } else {
             footer.classList.remove("visible");
           }
@@ -147,194 +148,272 @@
           lastScroll = currentScroll;
         }
 
-        // escuchador de scroll (passive para mejor rendimiento)
-        window.addEventListener("scroll", handleScroll, { passive: true });
+        // Mostrar footer al hacer hover
+        footer.addEventListener("mouseenter", () => {
+          if (footerTimeout) clearTimeout(footerTimeout);
+          footer.classList.add("visible");
+        });
 
-        // chequeo inicial por si el usuario carga ya cerca del final
+        // Ocultar después de salir del footer (con retraso)
+        footer.addEventListener("mouseleave", () => {
+          const currentScroll = window.pageYOffset || 0;
+          const nearBottom = (currentScroll + window.innerHeight) >= (document.documentElement.scrollHeight - nearBottomThreshold);
+          
+          if (!nearBottom) {
+            footerTimeout = setTimeout(() => {
+              footer.classList.remove("visible");
+            }, 1000);
+          }
+        });
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
         handleScroll();
       });
       </script>
 
-
       <script>
+        // Script mejorado para cambiar entre temas
         const toggleBtn = document.getElementById("themeToggle");
         const themeImage = document.getElementById("themeVideo");
 
-        function cambiarImagenSuave(imgElement, newSrc, duracion = 500) {
-          // fade out
-          imgElement.style.opacity = 0;
-
-          setTimeout(() => {
-            // cuando termina el fade out, cambiamos el src
-            imgElement.src = newSrc;
-
-            // esperamos a que la nueva imagen cargue antes de hacer fade in
-            imgElement.onload = () => {
-              imgElement.style.opacity = 1;
-            };
-          }, duracion);
-        }
+        // Precargar ambos videos para transiciones suaves
+        const dayVideo = new Video();
+        dayVideo.src = "Images/CocinaDiaVideo.mp4";
+        dayVideo.preload = "auto";
+        
+        const nightVideo = new Video();
+        nightVideo.src = "Images/CocinaNocheVideo.mp4";
+        nightVideo.preload = "auto";
 
         function cambiarVideoSuave(videoElement, newSrc, duracion = 500) {
-          // Guardar en qué segundo iba el video actual
-          const tiempoActual = videoElement.currentTime;
+          return new Promise((resolve) => {
+            const tiempoActual = videoElement.currentTime;
+            videoElement.style.transition = `opacity ${duracion}ms ease-in-out`;
+            videoElement.style.opacity = 0;
 
-          videoElement.style.opacity = 0;
+            setTimeout(() => {
+              videoElement.querySelector("source").src = newSrc;
+              videoElement.load();
 
-          setTimeout(() => {
-            videoElement.querySelector("source").src = newSrc;
-            videoElement.load();
-
-            // Cuando el nuevo video esté listo, saltamos al tiempo guardado
-            videoElement.onloadeddata = () => {
-              // Verificamos que no exceda la duración del nuevo video
-              const nuevoTiempo = Math.min(tiempoActual, videoElement.duration || tiempoActual);
-              videoElement.currentTime = nuevoTiempo;
-              videoElement.play();
-              videoElement.style.opacity = 1;
-            };
-          }, duracion);
+              videoElement.onloadeddata = () => {
+                const nuevoTiempo = Math.min(tiempoActual, videoElement.duration || tiempoActual);
+                videoElement.currentTime = nuevoTiempo;
+                videoElement.play();
+                videoElement.style.opacity = 1;
+                resolve();
+              };
+              
+              videoElement.onerror = () => {
+                videoElement.style.opacity = 1;
+                resolve();
+              };
+            }, duracion);
+          });
         }
 
-        
         let darkMode = false;
 
-        toggleBtn.addEventListener("click", () => {
+        toggleBtn.addEventListener("click", async () => {
+          // Deshabilitar múltiples clics durante la transición
+          toggleBtn.style.pointerEvents = "none";
+          
           darkMode = !darkMode;
 
           if (darkMode) {
-            cambiarImagenSuave(toggleBtn,"Images/Luna.png");
-            cambiarVideoSuave(themeVideo,"Images/CocinaDiaVideo.mp4");
-
+            toggleBtn.src = "Images/Luna.png";
+            await cambiarVideoSuave(themeVideo, "Images/CocinaDiaVideo.mp4");
           } else {
-            cambiarImagenSuave(toggleBtn,"Images/Sol.png");
-            cambiarVideoSuave(themeVideo,"Images/CocinaNocheVideo.mp4");
+            toggleBtn.src = "Images/Sol.png";
+            await cambiarVideoSuave(themeVideo, "Images/CocinaNocheVideo.mp4");
           }
+          
+          // Rehabilitar clics después de la transición
+          setTimeout(() => {
+            toggleBtn.style.pointerEvents = "auto";
+          }, 500);
         });
-      </script>
-      <script>
-        function limitarResolucion() {
-          if (window.innerWidth > 1440) {
-            document.body.style.maxWidth = "1440px";   // límite
-            document.body.style.margin = "0 auto";     // centrar
-          } else {
-            document.body.style.maxWidth = "100%";     // normal
-            document.body.style.margin = "0";
-          }
-        }
-
-        // ejecutar al cargar
-        window.addEventListener("load", limitarResolucion);
-        // ejecutar si redimensiona la ventana
-        window.addEventListener("resize", limitarResolucion);
       </script>
 
      <script>
-        function waitForVideo(videoElement) {
-          return new Promise(resolve => {
-            if (videoElement.readyState >= 3) {
-              resolve();
-            } else {
-              videoElement.addEventListener("canplaythrough", resolve, { once: true });
+      // Script mejorado para carga progresiva de recursos
+      function waitForVideo(videoElement) {
+        return new Promise(resolve => {
+          if (videoElement.readyState >= 3) {
+            resolve();
+          } else {
+            videoElement.addEventListener("canplaythrough", resolve, { once: true });
+            videoElement.addEventListener("error", resolve); // Manejar errores
+          }
+        });
+      }
+
+      function waitForImage(src) {
+        return new Promise(resolve => {
+          const img = new Image();
+          img.onload = () => resolve({success: true, src});
+          img.onerror = () => resolve({success: false, src});
+          img.src = src;
+        });
+      }
+
+      // Función para cargar recursos en lotes con delay
+      function loadInBatches(items, batchSize, delay) {
+        const results = [];
+        let index = 0;
+        
+        return new Promise(async (resolve) => {
+          while (index < items.length) {
+            const batch = items.slice(index, index + batchSize);
+            index += batchSize;
+            
+            const batchPromises = batch.map(item => waitForImage(item));
+            const batchResults = await Promise.all(batchPromises);
+            results.push(...batchResults);
+            
+            // Esperar antes del siguiente lote
+            if (index < items.length) {
+              await new Promise(r => setTimeout(r, delay));
+            }
+          }
+          resolve(results);
+        });
+      }
+
+      async function preloadResources() {
+        const videoNoche = document.getElementById("themeVideo");
+        const videoDia = document.createElement("video");
+        videoDia.src = "Images/CocinaDiaVideo.mp4";
+        videoDia.preload = "auto";
+
+        // Lista de todas las imágenes
+        const images = [
+          "Images/imagennoche.png",
+          "Images/3dartist.png",
+          "Images/PortfoliTitle.png",
+          "Images/OTitle.png",
+          "Images/Sol.png",
+          "Images/Luna.png",
+          "Images/BlenderLogo.png",
+          "Images/CuatroEstrellas.png",
+          "Images/habilidadesBlender.png",
+          "Images/Substance.png",
+          "Images/habilidadesSubstance.png",
+          "Images/Clip.png",
+          "Images/habilidadesClip.png",
+          "Images/1.jpg",
+          "Images/2.jpg",
+          "Images/3.jpg",
+          "Images/4.jpg",
+          "Images/5.jpg",
+          "Images/6.jpg",
+          "Images/7.jpg",
+          "Images/8.jpg"
+        ];
+
+        // Primero cargar videos
+        const videoPromises = [
+          waitForVideo(videoNoche),
+          waitForVideo(videoDia)
+        ];
+
+        let loaded = 0;
+        const total = images.length + videoPromises.length;
+        const progressText = document.getElementById("progress-text");
+
+        // Actualizar progreso para videos
+        const trackedVideoPromises = videoPromises.map(promise =>
+          promise.then(() => {
+            loaded++;
+            const percent = Math.round((loaded / total) * 100);
+            progressText.textContent = `Loading Portfolio... ${percent}%`;
+          })
+        );
+
+        await Promise.all(trackedVideoPromises);
+
+        // Luego cargar imágenes en lotes de 3 con delay de 100ms
+        await loadInBatches(images, 3, 100).then(imageResults => {
+          imageResults.forEach((result, index) => {
+            loaded++;
+            const percent = Math.round((loaded / total) * 100);
+            progressText.textContent = `Loading Portfolio... ${percent}%`;
+            
+            // Opcional: registrar imágenes que no cargaron
+            if (!result.success) {
+              console.warn(`Failed to load: ${result.src}`);
             }
           });
-        }
-
-        function waitForImage(src) {
-          return new Promise(resolve => {
-            const img = new Image();
-            img.onload = resolve;
-            img.onerror = resolve; // aunque falle, lo contamos para no quedarnos atascados
-            img.src = src;
-          });
-        }
-
-        async function preloadResources() {
-          const videoNoche = document.getElementById("themeVideo");
-          const videoDia = document.createElement("video");
-          videoDia.src = "Images/CocinaDiaVideo.mp4";
-          videoDia.preload = "auto";
-
-          // todas las imágenes usadas en el HTML
-          const images = [
-            "Images/imagennoche.png",
-            "Images/3dartist.png",
-            "Images/PortfoliTitle.png",
-            "Images/OTitle.png",
-            "Images/Sol.png",
-            "Images/Luna.png",
-            "Images/BlenderLogo.png",
-            "Images/CuatroEstrellas.png",
-            "Images/habilidadesBlender.png",
-            "Images/Substance.png",
-            "Images/habilidadesSubstance.png",
-            "Images/Clip.png",
-            "Images/habilidadesClip.png",
-            "Images/1.jpg",
-            "Images/2.jpg",
-            "Images/3.jpg",
-            "Images/4.jpg",
-            "Images/5.jpg",
-            "Images/6.jpg",
-            "Images/7.jpg",
-            "Images/8.jpg"
-          ];
-
-          // lista de promesas
-          const resources = [
-            waitForVideo(videoNoche),
-            waitForVideo(videoDia),
-            ...images.map(src => waitForImage(src))
-          ];
-
-          let loaded = 0;
-          const total = resources.length;
-          const progressText = document.getElementById("progress-text");
-
-          // envolvemos cada recurso para actualizar el progreso cuando se cumpla
-          const trackedResources = resources.map(promise =>
-            promise.then(() => {
-              loaded++;
-              const percent = Math.round((loaded / total) * 100);
-              progressText.textContent = `Loading Portfolio... ${percent}%`;
-            })
-          );
-
-          await Promise.all(trackedResources);
-        }
-
-        window.addEventListener("load", async () => {
-          const preloader = document.getElementById("preloader");
-
-          await preloadResources();
-
-          preloader.classList.add("hidden");
         });
+      }
+
+      window.addEventListener("load", async () => {
+        const preloader = document.getElementById("preloader");
+        
+        try {
+          await preloadResources();
+          preloader.classList.add("hidden");
+        } catch (error) {
+          console.error("Error during preloading:", error);
+          // Ocultar preloader incluso si hay errores
+          setTimeout(() => {
+            preloader.classList.add("hidden");
+          }, 2000);
+        }
+      });
      </script>
 
       <script>
-        function checkScreenWidth() {
+        // Script mejorado para detección de orientación en todos los dispositivos
+        function checkScreenSize() {
           const rotateMessage = document.getElementById("rotateMessage");
-          if (window.innerWidth < 1820) {
-            rotateMessage.style.display = "flex";
+          const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+          const isApple = /iPhone|iPad|iPod|Macintosh/i.test(navigator.userAgent);
+          
+          if (isMobile) {
+            // Para dispositivos móviles, verificar orientación
+            const isPortrait = window.innerHeight > window.innerWidth;
+            
+            if (isPortrait) {
+              rotateMessage.style.display = "flex";
+            } else {
+              rotateMessage.style.display = "none";
+            }
+          } else if (isApple) {
+            // Para dispositivos Apple no móviles, verificar ancho de pantalla
+            if (window.innerWidth < 1200) {
+              rotateMessage.style.display = "flex";
+            } else {
+              rotateMessage.style.display = "none";
+            }
           } else {
-            rotateMessage.style.display = "none";
+            // Para otros dispositivos
+            if (window.innerWidth < 1820) {
+              rotateMessage.style.display = "flex";
+            } else {
+              rotateMessage.style.display = "none";
+            }
           }
         }
 
-        // Revisar en carga y al redimensionar
-        window.addEventListener("load", checkScreenWidth);
-        window.addEventListener("resize", checkScreenWidth);
+        // Detectar cambios de orientación en dispositivos móviles
+        function setupOrientationDetection() {
+          // Verificar inicialmente
+          checkScreenSize();
+          
+          // Para dispositivos que soportan orientationchange
+          if (typeof window.orientation !== 'undefined') {
+            window.addEventListener('orientationchange', checkScreenSize);
+          }
+          
+          // Para todos los dispositivos
+          window.addEventListener('resize', checkScreenSize);
+        }
+
+        window.addEventListener("load", setupOrientationDetection);
+        window.addEventListener("resize", checkScreenSize);
       </script>
 
       <script type="module" src="./main.js"></script>
       <script src="golpe.js"></script>
-
-
-    
     </body>
-
-
-
-
 </html>
