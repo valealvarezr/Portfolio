@@ -502,8 +502,8 @@
         
         // Configurar progreso simulado para llegar a 50% en 10 segundos
         setTimeout(() => {
-          if (!loadingComplete && simulatedProgress < 50) {
-            simulatedProgress = 50;
+          if (!loadingComplete && simulatedProgress < 70) {
+            simulatedProgress = 80;
             const progressText = document.getElementById("progress-text");
             const currentText = progressText.textContent;
             const currentPercent = parseInt(currentText.match(/\d+/)) || 0;
@@ -512,7 +512,7 @@
               progressText.textContent = `Loading Portfolio... ${simulatedProgress}%`;
             }
           }
-        }, 10000); // 10 segundos
+        }, 6000); // 10 segundos
         
         try {
           await preloadResources();
