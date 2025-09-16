@@ -283,7 +283,6 @@ body {
       
       filter: invert(); /* base: "oscurecido" */
       cursor: pointer;
-      mix-blend-mode:difference;
       transition: filter 0.3s, transform 0.3s;
       
       z-index: 10;

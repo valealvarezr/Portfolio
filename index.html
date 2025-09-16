@@ -270,65 +270,59 @@
       </script>
 
       <script>
-        // Script mejorado para cambiar entre temas
         const toggleBtn = document.getElementById("themeToggle");
         const themeImage = document.getElementById("themeVideo");
 
-        // Precargar ambos videos para transiciones suaves
-        const dayVideo = new Video();
-        dayVideo.src = "Images/CocinaDiaVideo.mp4";
-        dayVideo.preload = "auto";
-        
-        const nightVideo = new Video();
-        nightVideo.src = "Images/CocinaNocheVideo.mp4";
-        nightVideo.preload = "auto";
+        function cambiarImagenSuave(imgElement, newSrc, duracion = 500) {
+          // fade out
+          imgElement.style.opacity = 0;
 
-        function cambiarVideoSuave(videoElement, newSrc, duracion = 500) {
-          return new Promise((resolve) => {
-            const tiempoActual = videoElement.currentTime;
-            videoElement.style.transition = `opacity ${duracion}ms ease-in-out`;
-            videoElement.style.opacity = 0;
+          setTimeout(() => {
+            // cuando termina el fade out, cambiamos el src
+            imgElement.src = newSrc;
 
-            setTimeout(() => {
-              videoElement.querySelector("source").src = newSrc;
-              videoElement.load();
-
-              videoElement.onloadeddata = () => {
-                const nuevoTiempo = Math.min(tiempoActual, videoElement.duration || tiempoActual);
-                videoElement.currentTime = nuevoTiempo;
-                videoElement.play();
-                videoElement.style.opacity = 1;
-                resolve();
-              };
-              
-              videoElement.onerror = () => {
-                videoElement.style.opacity = 1;
-                resolve();
-              };
-            }, duracion);
-          });
+            // esperamos a que la nueva imagen cargue antes de hacer fade in
+            imgElement.onload = () => {
+              imgElement.style.opacity = 1;
+            };
+          }, duracion);
         }
 
+        function cambiarVideoSuave(videoElement, newSrc, duracion = 500) {
+          // Guardar en qué segundo iba el video actual
+          const tiempoActual = videoElement.currentTime;
+
+          videoElement.style.opacity = 0;
+
+          setTimeout(() => {
+            videoElement.querySelector("source").src = newSrc;
+            videoElement.load();
+
+            // Cuando el nuevo video esté listo, saltamos al tiempo guardado
+            videoElement.onloadeddata = () => {
+              // Verificamos que no exceda la duración del nuevo video
+              const nuevoTiempo = Math.min(tiempoActual, videoElement.duration || tiempoActual);
+              videoElement.currentTime = nuevoTiempo;
+              videoElement.play();
+              videoElement.style.opacity = 1;
+            };
+          }, duracion);
+        }
+
+        
         let darkMode = false;
 
-        toggleBtn.addEventListener("click", async () => {
-          // Deshabilitar múltiples clics durante la transición
-          toggleBtn.style.pointerEvents = "none";
-          
+        toggleBtn.addEventListener("click", () => {
           darkMode = !darkMode;
 
           if (darkMode) {
-            toggleBtn.src = "Images/Luna.png";
-            await cambiarVideoSuave(themeVideo, "Images/CocinaDiaVideo.mp4");
+            cambiarImagenSuave(toggleBtn,"Images/Luna.png");
+            cambiarVideoSuave(themeVideo,"Images/CocinaDiaVideo.mp4");
+
           } else {
-            toggleBtn.src = "Images/Sol.png";
-            await cambiarVideoSuave(themeVideo, "Images/CocinaNocheVideo.mp4");
+            cambiarImagenSuave(toggleBtn,"Images/Sol.png");
+            cambiarVideoSuave(themeVideo,"Images/CocinaNocheVideo.mp4");
           }
-          
-          // Rehabilitar clics después de la transición
-          setTimeout(() => {
-            toggleBtn.style.pointerEvents = "auto";
-          }, 500);
         });
       </script>
 
