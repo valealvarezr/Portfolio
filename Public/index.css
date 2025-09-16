@@ -2,8 +2,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* evita scroll horizontal */
-  
+  overflow-x:hidden;
 }
 
 body {
@@ -54,6 +53,27 @@ body {
   line-height: 1.5;
 }
 
+#rotateMessage .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.5);      
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;      
+}
+      
+#rotateMessage .close-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
 .phone-icon {
   width: 80px;
   height: 150px;
@@ -101,7 +121,6 @@ body {
 body {
   margin: 0;
   background: #000;
-  overflow-x: hidden; /* evita scroll horizontal */
 }
 
 

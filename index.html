@@ -15,10 +15,108 @@
         }
       }
     </script>
+    <style>
+      /* Estilos mejorados para el botón de cerrar - MÁS GRANDE Y VISIBLE */
+      #rotateMessage {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.85);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        font-family: Arial, sans-serif;
+      }
+      
+      #rotateMessage .message-box {
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        text-align: center;
+        max-width: 400px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        position: relative;
+      }
+      
+      #rotateMessage .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: #ff4757;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 50px;  /* Más grande */
+        height: 50px; /* Más grande */
+        cursor: pointer;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px; /* Texto más grande */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        z-index: 10000;
+      }
+      
+      #rotateMessage .close-btn:hover {
+        background: #ff6b81;
+        transform: scale(1.1);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      }
+      
+      #rotateMessage .close-btn:active {
+        transform: scale(0.95);
+      }
+      
+      #rotateMessage .phone-icon {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 25px;
+        position: relative;
+        height: 100px;
+      }
+      
+      #rotateMessage .phone {
+        width: 60px;
+        height: 100px;
+        border: 4px solid #333;
+        border-radius: 12px;
+        position: relative;
+      }
+      
+      #rotateMessage .screen {
+        width: 40px;
+        height: 40px;
+        border: 3px solid #333;
+        border-radius: 5px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(0deg);
+        animation: rotateAnimation 3s infinite ease-in-out;
+      }
+      
+      @keyframes rotateAnimation {
+        0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+        50% { transform: translate(-50%, -50%) rotate(90deg); }
+      }
+      
+      #rotateMessage p {
+        font-size: 18px;
+        line-height: 1.5;
+        color: #333;
+        margin: 0;
+      }
+    </style>
 	</head>
     <body id="top">
       <!-- Overlay aviso orientación -->
       <div id="rotateMessage">
+        <button class="close-btn" title="Cerrar">X</button>
         <div class="message-box">
           <div class="phone-icon">
             <div class="phone"></div>
@@ -235,7 +333,7 @@
       </script>
 
      <script>
-      // Script mejorado para carga progresiva de recursos
+      // Script mejorado para carga progresiva de recursos con simulación
       function waitForVideo(videoElement) {
         return new Promise(resolve => {
           if (videoElement.readyState >= 3) {
@@ -279,6 +377,12 @@
         });
       }
 
+      // Variables globales para controlar la carga
+      let loadingComplete = false;
+      let forcedClose = false;
+      let progressInterval;
+      let simulatedProgress = 0;
+
       async function preloadResources() {
         const videoNoche = document.getElementById("themeVideo");
         const videoDia = document.createElement("video");
@@ -310,6 +414,9 @@
           "Images/8.jpg"
         ];
 
+        // Iniciar progreso simulado
+        startSimulatedProgress();
+        
         // Primero cargar videos
         const videoPromises = [
           waitForVideo(videoNoche),
@@ -325,7 +432,9 @@
           promise.then(() => {
             loaded++;
             const percent = Math.round((loaded / total) * 100);
-            progressText.textContent = `Loading Portfolio... ${percent}%`;
+            // Usar el mayor valor entre simulado y real
+            const displayPercent = Math.max(simulatedProgress, percent);
+            progressText.textContent = `Loading Portfolio... ${displayPercent}%`;
           })
         );
 
@@ -336,7 +445,9 @@
           imageResults.forEach((result, index) => {
             loaded++;
             const percent = Math.round((loaded / total) * 100);
-            progressText.textContent = `Loading Portfolio... ${percent}%`;
+            // Usar el mayor valor entre simulado y real
+            const displayPercent = Math.max(simulatedProgress, percent);
+            progressText.textContent = `Loading Portfolio... ${displayPercent}%`;
             
             // Opcional: registrar imágenes que no cargaron
             if (!result.success) {
@@ -344,20 +455,74 @@
             }
           });
         });
+        
+        // Marcar que la carga está completa
+        loadingComplete = true;
+        clearInterval(progressInterval);
+      }
+
+      // Función para simular progreso de carga
+      function startSimulatedProgress() {
+        simulatedProgress = 0;
+        const progressText = document.getElementById("progress-text");
+        
+        progressInterval = setInterval(() => {
+          if (simulatedProgress < 100) {
+            simulatedProgress += 1;
+            // Actualizar solo si es mayor que el progreso real
+            const currentText = progressText.textContent;
+            const currentPercent = parseInt(currentText.match(/\d+/)) || 0;
+            
+            if (simulatedProgress > currentPercent) {
+              progressText.textContent = `Loading Portfolio... ${simulatedProgress}%`;
+            }
+          }
+        }, 100); // Aumenta 1% cada 100ms
+      }
+
+      // Función para cerrar el preloader
+      function hidePreloader() {
+        const preloader = document.getElementById("preloader");
+        if (preloader) {
+          preloader.classList.add("hidden");
+          clearInterval(progressInterval);
+        }
       }
 
       window.addEventListener("load", async () => {
         const preloader = document.getElementById("preloader");
         
+        // Configurar timeout para forzar cierre después de 12 segundos
+        const forceCloseTimeout = setTimeout(() => {
+          if (!loadingComplete && !forcedClose) {
+            forcedClose = true;
+            hidePreloader();
+          }
+        }, 12000); // 12 segundos
+        
+        // Configurar progreso simulado para llegar a 50% en 10 segundos
+        setTimeout(() => {
+          if (!loadingComplete && simulatedProgress < 50) {
+            simulatedProgress = 50;
+            const progressText = document.getElementById("progress-text");
+            const currentText = progressText.textContent;
+            const currentPercent = parseInt(currentText.match(/\d+/)) || 0;
+            
+            if (simulatedProgress > currentPercent) {
+              progressText.textContent = `Loading Portfolio... ${simulatedProgress}%`;
+            }
+          }
+        }, 10000); // 10 segundos
+        
         try {
           await preloadResources();
-          preloader.classList.add("hidden");
+          hidePreloader();
+          clearTimeout(forceCloseTimeout);
         } catch (error) {
           console.error("Error during preloading:", error);
           // Ocultar preloader incluso si hay errores
-          setTimeout(() => {
-            preloader.classList.add("hidden");
-          }, 2000);
+          hidePreloader();
+          clearTimeout(forceCloseTimeout);
         }
       });
      </script>
@@ -368,6 +533,12 @@
           const rotateMessage = document.getElementById("rotateMessage");
           const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
           const isApple = /iPhone|iPad|iPod|Macintosh/i.test(navigator.userAgent);
+          
+          // Si el usuario ya cerró el mensaje manualmente, no mostrarlo
+          if (localStorage.getItem('rotateMessageClosed') === 'true') {
+            rotateMessage.style.display = "none";
+            return;
+          }
           
           if (isMobile) {
             // Para dispositivos móviles, verificar orientación
@@ -394,6 +565,14 @@
             }
           }
         }
+
+        // Configurar el botón de cerrar para el mensaje de rotación
+        document.querySelector('#rotateMessage .close-btn').addEventListener('click', function() {
+          const rotateMessage = document.getElementById("rotateMessage");
+          rotateMessage.style.display = "none";
+          // Guardar preferencia para no mostrar nuevamente
+          localStorage.setItem('rotateMessageClosed', 'true');
+        });
 
         // Detectar cambios de orientación en dispositivos móviles
         function setupOrientationDetection() {
